@@ -30,9 +30,15 @@
 #define RS_DATA 1
 
 // prototypes
-void LCD_init();
+void LCD_init_4bit();
 void putChar(uint8_t x);
 void setXY(uint8_t x, uint8_t y);
+void writeByte(uint8_t b,uint8_t RS);
+
+
+// low level
+void xmit_byte(uint8_t b);
+void xmit_nibble(uint8_t nib);
 
 
 #endif /* LCD_H_ */

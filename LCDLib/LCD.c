@@ -6,7 +6,7 @@
  */ 
 #include "LCD.h"
 
-void LCD_init()
+void LCD_init_4bit()
 {
 //33, 32, and 28 in hex. 
 	writeByte(0x33,RS_CMD);	
@@ -25,6 +25,7 @@ void setXY(uint8_t x, uint8_t y)
 {
 	// address start at 0x80,0xc0
 	// byte 0x80+y*0x40+x
+	// only works for 2 line displays
 	uint8_t val = 0x80+y*0x40+x;
 	writeByte(val,0);
 }
