@@ -8,10 +8,32 @@
 
 void LCD_init_4bit()
 {
+		
+	
+	
+	_delay_ms(100);
+	WriteCommand(LCD_FUNCTION_RESET);
+	_delay_ms(10);
+	WriteCommand(LCD_FUNCTION_RESET);
+	_delay_us(200);
+	WriteCommand(LCD_FUNCTION_RESET);
+	_delay_us(200);
+	WriteCommand(LCD_FUNCTION_SET_4BIT);
+	_delay_us(80);
+	WriteCommand(LCD_DISPLAY_OFF);
+	_delay_us(80);
+	WriteCommand(LCD_CLEAR);
+	_delay_ms(4);
+	WriteCommand(LCD_ENTRY_MODE);
+	_delay_us(80);
+	WriteCommand(LCD_DISPLAY_ON);
+	_delay_us(80);
+
+	
 //33, 32, and 28 in hex. 
-	writeByte(0x33,RS_CMD);	
-	writeByte(0x32,RS_CMD);	
-	writeByte(0x28,RS_CMD);	
+	//writeByte(0x33,RS_CMD);	
+	//writeByte(0x32,RS_CMD);	
+	//writeByte(0x28,RS_CMD);	
 }
 
 void putChar(uint8_t x)
@@ -19,6 +41,11 @@ void putChar(uint8_t x)
 	writeByte(x,1);
 }
 
+
+void WriteCommand(uint8_t b)
+{
+	writeByte(b,RS_CMD);
+}
 
 
 void setXY(uint8_t x, uint8_t y)
@@ -35,9 +62,13 @@ void setXY(uint8_t x, uint8_t y)
 void writeByte(uint8_t b,uint8_t RS)
 {
 	if (RS)
+	{
 		RS_PORT |= 1<<RS_BIT;
+	}
 	else
+	{
 		RS_PORT &= ~(1<<RS_BIT);	
+	}
 	RW_PORT &= ~(1<<RW_BIT);
 	xmit_byte(b);
 	//xmit_nibble(b>>4);
